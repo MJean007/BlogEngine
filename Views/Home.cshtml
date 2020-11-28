@@ -2,6 +2,36 @@
 @{
     ViewData["Title"] = "Home";
 }
+<link rel="stylesheet" href="../css/bootstrap.css">
+<script src="/js/bootstrap.js"></script>
+<h1>Blog</h1>
+<hr>
+<div class="container">
+<p>&nbsp;</p>
+<div class="row">
+    <div class="col-xs-6">
+        <label class="header">Categories</label>
+    </div>
+    <div class="col-xs-6">
+        <button class="btn btn-primary" asp-controller="Category" asp-action="Add">Add</button>
+    </div>
+</div>
+<div class="row">
+    liste de categories
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="row">
+    <div class="col-xs-6">
+        <label class="header">Posts</label>
+    </div>
+    <div class="col-xs-6">
+        <button class="btn btn-primary" asp-controller="Post" asp-action="Add">Add</button>
+    </div>
+</div>
+<div class="row">
+    liste de posts
+</div>
+</div>
 
-<h1>Home</h1>
 
