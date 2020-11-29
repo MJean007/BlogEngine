@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using BlogEngine.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogEngine
 {
@@ -26,6 +28,7 @@ namespace BlogEngine
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<BlogEngine.Models.BlogDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

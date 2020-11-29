@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BlogEngine.Models;
+using System.Web.Http;
 
 namespace BlogEngine.Controllers
 {
@@ -24,16 +26,39 @@ namespace BlogEngine.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        //public IEnumerable<category> Get()
+        public JsonResult Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            List<category> liste = new List<category>();
+            //var rng = new Random();
+            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = rng.Next(-20, 55),
+            //    Summary = Summaries[rng.Next(Summaries.Length)]
+            //})
+            //.ToArray();
+
+            return new JsonResult(liste);
+        }
+
+
+        // add category
+
+
+        [System.Web.Http.Route("categories/{ID?}")]
+        public IHttpActionResult Get(int? id)
+        {
+            BlogDBContext context = new BlogDBContext();
+            category cat = context.Categories.Where(c => c.categoryID == id).FirstOrDefault();
+
+            if(cat == null)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return NotFound();
+            }
+
+            return   Ok(new JsonResult(cat));
+
         }
     }
 }

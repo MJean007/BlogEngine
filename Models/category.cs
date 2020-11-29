@@ -8,5 +8,6 @@ namespace BlogEngine.Models
     public class category
     {
         public string title { get; set; }
+        public int categoryID { get; }
     }
 }

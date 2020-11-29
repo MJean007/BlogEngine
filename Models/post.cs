@@ -7,6 +7,7 @@ namespace BlogEngine.Models
 {
     public class post
     {
+        public int postID { get; }
         public string title { get; set; }
 
         public DateTime publicationDate { get; set; }
