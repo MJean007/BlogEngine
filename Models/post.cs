@@ -12,5 +12,6 @@ namespace BlogEngine.Models
 
         public DateTime publicationDate { get; set; }
         public string content { get; set; }
+        public int categoryID { get; }
     }
 }
