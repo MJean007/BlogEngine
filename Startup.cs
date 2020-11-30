@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using BlogEngine.Models;
 using Microsoft.EntityFrameworkCore;
+using BlogEngine.Repository;
 
 namespace BlogEngine
 {
@@ -29,6 +30,7 @@ namespace BlogEngine
         {
             services.AddControllers();
             services.AddDbContext<BlogEngine.Models.BlogDBContext>(item => item.UseSqlServer(Configuration.GetConnectionString("BlogDBConnection")));
+            //services.AddScoped<IPostRepository, PostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,13 +44,16 @@ namespace BlogEngine
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            // commented the next to to follow the Crud-operation in asp-net-core-web-api-with-entity
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            // and added:
+            //app.UseMvc();
         }
     }
 }
