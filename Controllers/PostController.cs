@@ -18,21 +18,27 @@ namespace BlogEngine.Controllers
         // GET: api/Post
         [HttpGet]
         
-        public IEnumerable<post> Get()
+        public IActionResult Get()
         {
           
             IEnumerable<post> liste = context.post.ToArray().OrderBy(t => t.title);
-            return liste;
+            if (liste == null)
+            {
+                return NotFound();
+            }
+            return Ok(new JsonResult(liste));
         }
 
         // GET: api/Post/5
         [HttpGet("{id}", Name = "")]
-        //[HttpGet]
-        //[Route("Get")]
-        public post GetID(int id)
+        public IActionResult GetID(int id)
         {
             post _post = context.post.Where(p => p.postID == id).FirstOrDefault();
-            return _post;
+            if(_post == null)
+            {
+                return NotFound(id);
+            }
+            return Ok(new JsonResult(_post));
         }
 
         // POST: api/Post

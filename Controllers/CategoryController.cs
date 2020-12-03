@@ -20,32 +20,27 @@ namespace BlogEngine.Controllers
         };
 
         private readonly ILogger<CategoryController> _logger;
-
+        private BlogDBContext context = new BlogDBContext();
         public CategoryController(ILogger<CategoryController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<category> Get()
+        //[Route("categories")]
+        //public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            BlogDBContext context = new BlogDBContext();
-            IEnumerable<category> liste = context.category.ToArray().OrderBy(t => t.title);
-            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
-            return liste;
+            IEnumerable<string> liste = context.category.ToArray().OrderBy(n => n.title).Select(n=>n.title);
+            //return liste;
+            return Ok(new JsonResult(liste));
         }
 
         //[Route("categories")]
         //public JsonResult Get()
         //{
         //    List<category> liste = new List<category>();
-        //    BlogDBContext context = new BlogDBContext();
+      
         //    liste = context.category.OrderBy(t => t.title).ToList();
         //    return new JsonResult(liste);
         //}
@@ -102,7 +97,6 @@ namespace BlogEngine.Controllers
         [HttpGet("{id}", Name = "Get")]
         public IActionResult get(int? id)
         {
-            BlogDBContext context = new BlogDBContext();
             category cat = context.category.Where(c => c.categoryID == id).FirstOrDefault();
 
             if (cat == null)
@@ -111,8 +105,16 @@ namespace BlogEngine.Controllers
                 //return request.createresponse(httpstatuscode.notfound, id);
             }
 
-            return Ok(new JsonResult(cat));
+            return Ok(new JsonResult(cat.title));
+            //return cat.title;
 
         }
+        //[HttpGet("{id}", Name = "get")]
+        //public string get(int? id)
+        //{
+        //    return context.category.Where(c => c.categoryID == id).Select(c=>c.title).FirstOrDefault();
+        //}
+
+
     }
 }
