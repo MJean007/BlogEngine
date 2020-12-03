@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BlogEngine.Models;
-//using System.Web.Http;
+
 
 namespace BlogEngine.Controllers
 {
     [ApiController]
-    [System.Web.Http.Route("[controller]")]
+    [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -26,15 +26,29 @@ namespace BlogEngine.Controllers
             _logger = logger;
         }
 
-
-        [Route("categories")]
-        public JsonResult Get()
+        [HttpGet]
+        public IEnumerable<category> Get()
         {
-            List<category> liste = new List<category>();
             BlogDBContext context = new BlogDBContext();
-            liste = context.category.OrderBy(t => t.title).ToList();
-            return new JsonResult(liste);
+            IEnumerable<category> liste = context.category.ToArray().OrderBy(t => t.title);
+            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = rng.Next(-20, 55),
+            //    Summary = Summaries[rng.Next(Summaries.Length)]
+            //})
+            //.ToArray();
+            return liste;
         }
+
+        //[Route("categories")]
+        //public JsonResult Get()
+        //{
+        //    List<category> liste = new List<category>();
+        //    BlogDBContext context = new BlogDBContext();
+        //    liste = context.category.OrderBy(t => t.title).ToList();
+        //    return new JsonResult(liste);
+        //}
 
 
         // add category
