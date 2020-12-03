@@ -4,25 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BlogEngine.Models;
 
 namespace BlogEngine.Controllers
 {
-    [Route("api/[controller]")]
+    
+    
     [ApiController]
+    [Route("[controller]")]
     public class PostController : ControllerBase
-    {
+    { 
+        private BlogDBContext context = new BlogDBContext();
         // GET: api/Post
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<post> Get()
         {
-            return new string[] { "value1", "value2" };
+          
+            IEnumerable<post> liste = context.post.ToArray().OrderBy(t => t.title);
+            return liste;
         }
 
         // GET: api/Post/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public post Get(int id)
         {
-            return "value";
+            post _post = context.post.Where(p=>p.postID == id).FirstOrDefault();
+            return _post;
         }
 
         // POST: api/Post

@@ -99,7 +99,7 @@ namespace BlogEngine.Controllers
 
 
 
-        [Route("categories/{id?}")]
+        [HttpGet("{id}", Name = "Get")]
         public IActionResult get(int? id)
         {
             BlogDBContext context = new BlogDBContext();
