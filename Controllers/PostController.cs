@@ -17,6 +17,7 @@ namespace BlogEngine.Controllers
         private BlogDBContext context = new BlogDBContext();
         // GET: api/Post
         [HttpGet]
+        
         public IEnumerable<post> Get()
         {
           
@@ -25,10 +26,12 @@ namespace BlogEngine.Controllers
         }
 
         // GET: api/Post/5
-        [HttpGet("{id}", Name = "Get")]
-        public post Get(int id)
+        [HttpGet("{id}", Name = "")]
+        //[HttpGet]
+        //[Route("Get")]
+        public post GetID(int id)
         {
-            post _post = context.post.Where(p=>p.postID == id).FirstOrDefault();
+            post _post = context.post.Where(p => p.postID == id).FirstOrDefault();
             return _post;
         }
 
