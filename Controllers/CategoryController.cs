@@ -36,15 +36,6 @@ namespace BlogEngine.Controllers
             return Ok(new JsonResult(liste));
         }
 
-        //[Route("categories")]
-        //public JsonResult Get()
-        //{
-        //    List<category> liste = new List<category>();
-      
-        //    liste = context.category.OrderBy(t => t.title).ToList();
-        //    return new JsonResult(liste);
-        //}
-
 
         // add category
         [HttpPost]
@@ -92,28 +83,17 @@ namespace BlogEngine.Controllers
             }
         }
 
-
-
         [HttpGet("{id}", Name = "Get")]
         public IActionResult get(int? id)
         {
             category cat = context.category.Where(c => c.categoryID == id).FirstOrDefault();
-
             if (cat == null)
             {
                 return NotFound(id);
-                //return request.createresponse(httpstatuscode.notfound, id);
             }
-
             return Ok(new JsonResult(cat.title));
-            //return cat.title;
-
         }
-        //[HttpGet("{id}", Name = "get")]
-        //public string get(int? id)
-        //{
-        //    return context.category.Where(c => c.categoryID == id).Select(c=>c.title).FirstOrDefault();
-        //}
+      
 
 
     }
